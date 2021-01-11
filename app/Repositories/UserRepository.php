@@ -10,6 +10,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Support\Collection;
 use InvalidArgumentException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -73,7 +74,7 @@ class UserRepository implements UserRepositoryInterface
         try {
             $this->user->newQuery()->where('id', $id)->first()->delete();
         } catch (Exception $e) {
-            throw new InvalidArgumentException('Unable to delete data');
+            throw new BadRequestHttpException('Invalid id');
         }
     }
 }
